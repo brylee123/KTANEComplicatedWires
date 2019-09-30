@@ -1,6 +1,5 @@
-
-
 def maze():
+
 	coord1_input = ""
 	coord2_input = ""
 	curloc_input = ""
@@ -70,14 +69,16 @@ def maze():
 		# Check both combinations of coordinate pairs with valid mazes
 		coordpair = (coord1, coord2)
 		if coordpair in valid_pairs:
-			print("Valid coordinate pair! Continuing ...")
+			print("\nValid coordinate pair! Continuing ...\n")
 		else:
 			coordpair = (coord2, coord1)
 			if coordpair in valid_pairs:
-				print("Valid coordinate pair! Continuing ...")
+				print("\nValid coordinate pair! Continuing ...\n")
 				break # Unnecessary but we'll keep it in for now.
 			else:
 				print("Error: Coorinate pair does not match any existing mazes. Try again.")
+				coord1 = None
+				coord2 = None
 
 	# At this point, the maze should be chosen and decided upon
 
@@ -92,9 +93,12 @@ def maze():
 
 	target_valid = False
 	while not target_valid:
-		target_input = input("What is the coordinate of current location: ")
+		target_input = input("What is the coordinate of target location: ")
 		target = coord_validation(target_input)
 		if target == 0:
 			continue
 		else:
 			break
+
+if __name__ == '__main__':
+	maze()

@@ -77,3 +77,6 @@ def simplewires():
 			print("Cut last wire")
 		else:
 			print("Cut fourth wire")
+
+if __name__ == '__main__':
+	simplewires()
