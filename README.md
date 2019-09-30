@@ -1,2 +1,2 @@
 # KTANE Module Solver
-Quick solution to solving Complicated Wires in the game "Keep Talking and Nobody Explodes" (KTANE).
+Quick solution to solving multiple modules in the game "Keep Talking and Nobody Explodes" (KTANE).
