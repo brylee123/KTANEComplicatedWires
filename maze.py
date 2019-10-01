@@ -1,3 +1,19 @@
+import maze_design
+
+def find_path(graph, start_vertex, end_vertex, path=None):
+	if path == None:
+		path = []
+	path = path + [start_vertex]
+	if start_vertex == end_vertex:
+		return path
+	for vertex in graph[start_vertex]:
+		if vertex not in path:
+			extended_path = find_path(graph, vertex, end_vertex, path)
+			if extended_path: 
+				return extended_path
+	return None
+	
+
 def maze():
 
 	coord1_input = ""
@@ -46,6 +62,7 @@ def maze():
 			return 0
 		return (int(x), int(y))
 
+	'''
 	while coordpair not in valid_pairs:
 
 		# Take input for first coordinate pair
@@ -79,7 +96,7 @@ def maze():
 				print("Error: Coorinate pair does not match any existing mazes. Try again.")
 				coord1 = None
 				coord2 = None
-
+	'''
 	# At this point, the maze should be chosen and decided upon
 
 	curloc_valid = False
@@ -99,6 +116,31 @@ def maze():
 			continue
 		else:
 			break
+
+	adj_list = maze_design.maze_design(1)
+	path = find_path(adj_list, curloc, target)
+
+	relative_path = []
+	for i, cur_node in enumerate(path):
+		direction = ""
+		if cur_node == curloc: # First
+			continue
+		else:
+			px, py = path[i-1] # Previous Node
+			cx, cy = cur_node # Current Node
+
+			if cx > px:
+				relative_path.append("right")
+			elif cx < px:
+				relative_path.append("left")
+			elif cy > py:
+				relative_path.append("up")
+			elif cy < py:
+				relative_path.append("down")
+
+	print(relative_path)
+
+
 
 if __name__ == '__main__':
 	maze()
