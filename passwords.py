@@ -19,7 +19,7 @@ def passwords():
 
 	candidates = wordbank.copy()
 	
-	for i in range(1,6): # 1-5
+	for i in range(1,6): # 1-5 Columns
 
 		column = ""
 		while not column.isalpha() or len(column) != 6:
