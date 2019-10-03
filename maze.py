@@ -12,117 +12,67 @@ def find_path(graph, start_vertex, end_vertex, path=None):
 			if extended_path: 
 				return extended_path
 	return None
-	
 
+def coord_validation(input_coord):
+	if input_coord.count(",") > 1 or "," not in input_coord:
+		print("Error: Incorrect coordinate formatting.")
+		return 0
+	x, y = input_coord.replace(" ", "").split(",")
+	if not x.isnumeric() or not y.isnumeric() or int(x) > 6 or int(x) < 1 or int(y) > 6 or int(y) < 1:
+		print("Error: x or y coordinate is not a valid integer or it is not within range")
+		return 0
+	return (int(x), int(y))
+	
 def maze():
 
-	coord1_input = ""
-	coord2_input = ""
-	curloc_input = ""
-	target_input = ""
-	coord1 = None
-	coord2 = None
-	coordpair = None
-	curloc = None
-	target = None
-
-	# Valid coordinate pairs for indicators
-	valid_pairs = {
-		((1,5),(6,4)),
-		((2,3),(5,5)),
-		((4,3),(6,3)),
-		((1,3),(1,6)),
-		((4,1),(5,4)),
-		((3,2),(5,6)),
-		((2,1),(2,6)),
-		((3,3),(4,6)),
-		((1,2),(3,5))
+	valid_indicators = {
+		(1,5): 1, (6,4): 1,
+		(2,3): 2, (5,5): 2,
+		(4,3): 3, (6,3): 3,
+		(1,3): 4, (1,6): 4,
+		(4,1): 5, (5,4): 5,
+		(3,2): 6, (5,6): 6,
+		(2,1): 7, (2,6): 7,
+		(3,3): 8, (4,6): 8,
+		(1,2): 9, (3,5): 9
 	}
 
-	# Valid individual coordinates for indicators
-	valid_inputs = {
-		(1,5),(6,4),
-		(2,3),(5,5),
-		(4,3),(6,3),
-		(1,3),(1,6),
-		(4,1),(5,4),
-		(3,2),(5,6),
-		(2,1),(2,6),
-		(3,3),(4,6),
-		(1,2),(3,5)
-	}
+	indicator_input = ""
+	indicator = None
+	while indicator not in valid_indicators.keys():
+		indicator_input = input("Input one indicator coordinate (green circle): ")
+		indicator = coord_validation(indicator_input)
+		if indicator == 0: # Returned error
+			continue
+		if indicator not in valid_indicators.keys():
+			print("Error: Cooridinate does not match any existing mazes. Try again.")
+	maze_number = valid_indicators[indicator]
 
-	def coord_validation(input_coord):
-		if input_coord.count(",") > 1 or "," not in input_coord:
-			print("Error: Incorrect coordinate formatting.")
-			return 0
-		x, y = input_coord.replace(" ", "").split(",")
-		if not x.isnumeric() or not y.isnumeric() or int(x) > 6 or int(x) < 1 or int(y) > 6 or int(y) < 1:
-			print("Error: x or y coordinate is not a valid integer or it is not within range")
-			return 0
-		return (int(x), int(y))
-
-	'''
-	while coordpair not in valid_pairs:
-
-		# Take input for first coordinate pair
-		while coord1 not in valid_inputs:
-			coord1_input = input("What is the first indicator coordinate: ")
-			coord1 = coord_validation(coord1_input)
-			if coord1 == 0: # Returned error
-				continue
-			if coord1 not in valid_inputs:
-				print("Error: Cooridinate does not match any existing mazes. Try again.")
-
-		# Take input for second coordinate pair
-		while coord2 not in valid_inputs:
-			coord2_input = input("What is the second indicator coordinate: ")
-			coord2 = coord_validation(coord2_input)
-			if coord2 == 0: # Returned error
-				continue
-			if coord2 not in valid_inputs:
-				print("Error: Cooridinate does not match any existing mazes. Try again.")
-
-		# Check both combinations of coordinate pairs with valid mazes
-		coordpair = (coord1, coord2)
-		if coordpair in valid_pairs:
-			print("\nValid coordinate pair! Continuing ...\n")
-		else:
-			coordpair = (coord2, coord1)
-			if coordpair in valid_pairs:
-				print("\nValid coordinate pair! Continuing ...\n")
-				break # Unnecessary but we'll keep it in for now.
-			else:
-				print("Error: Coorinate pair does not match any existing mazes. Try again.")
-				coord1 = None
-				coord2 = None
-	'''
 	# At this point, the maze should be chosen and decided upon
 
-	curloc_valid = False
-	while not curloc_valid:
-		curloc_input = input("What is the coordinate of current location: ")
+	curloc_input = ""
+	curloc = None
+	while 1:
+		curloc_input = input("What is the coordinate of current location (white square): ")
 		curloc = coord_validation(curloc_input)
-		if curloc == 0:
-			continue
-		else:
+		if curloc != 0: # coord_validation returns 0 if there is an error
 			break
 
-	target_valid = False
-	while not target_valid:
-		target_input = input("What is the coordinate of target location: ")
+	target_input = ""
+	target = None
+	while 1:
+		target_input = input("What is the coordinate of target location (red triange): ")
 		target = coord_validation(target_input)
-		if target == 0:
-			continue
-		else:
+		if target != 0: # coord_validation returns 0 if there is an error
 			break
 
-	adj_list = maze_design.maze_design(2) # Insert correct graph number
+	adj_list = maze_design.maze_design(maze_number) # Insert correct graph number
+	#adj_list = maze_design.maze_design(4) # Insert correct graph number
+
 	path = find_path(adj_list, curloc, target)
 
 	relative_path = []
-	for i, cur_node in enumerate(path):
-		direction = ""
+	for i, cur_node in enumerate(path): # Translate path to relative directions
 		if cur_node == curloc: # First
 			continue
 		else:
@@ -130,17 +80,15 @@ def maze():
 			cx, cy = cur_node # Current Node
 
 			if cx > px:
-				relative_path.append("right")
+				relative_path.append("RIGHT")
 			elif cx < px:
-				relative_path.append("left")
+				relative_path.append("LEFT")
 			elif cy > py:
-				relative_path.append("up")
+				relative_path.append("UP")
 			elif cy < py:
-				relative_path.append("down")
+				relative_path.append("DOWN")
 
 	print(relative_path)
-
-
 
 if __name__ == '__main__':
 	maze()
