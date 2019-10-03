@@ -4,6 +4,7 @@ def find_path(graph, start_vertex, end_vertex, path=None):
 	if path == None:
 		path = []
 	path = path + [start_vertex]
+	#print(path)
 	if start_vertex == end_vertex:
 		return path
 	for vertex in graph[start_vertex]:
