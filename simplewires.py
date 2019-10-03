@@ -43,9 +43,9 @@ def simplewires():
 				print("Cut last wire")
 		elif sequence[-1] == "yellow" and sequence.count("red") == 0:
 			print("Cut first wire")
-		elif sequence.count("blue"):
+		elif sequence.count("blue") == 1:
 			print("Cut first wire")
-		elif sequence.count("yellow"):
+		elif sequence.count("yellow") > 1:
 			print("Cut last wire")
 		else:
 			print("Cut second wire")
