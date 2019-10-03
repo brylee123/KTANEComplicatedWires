@@ -117,7 +117,7 @@ def maze():
 		else:
 			break
 
-	adj_list = maze_design.maze_design(1)
+	adj_list = maze_design.maze_design(2) # Insert correct graph number
 	path = find_path(adj_list, curloc, target)
 
 	relative_path = []
