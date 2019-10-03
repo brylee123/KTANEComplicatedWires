@@ -18,10 +18,11 @@ def simplewires():
 	current_wire = ""
 	while len(sequence) <= 6:
 		while not current_wire.isnumeric() or int(current_wire) > 6:
-			current_wire = input("What color is this wire?\n\t1. black   2. blue   3. red   4. white   5. yellow   6. done")
+			current_wire = input("What color is this wire?\n\t1. black   2. blue   3. red   4. white   5. yellow   6. done\n\t")
 		if current_wire == "6":
 			break
-		sequence.append(wire[current_wire])
+		sequence.append(wire[int(current_wire)])
+		current_wire = ""
 
 	if len(sequence) == 3:
 		if "red" not in sequence:
