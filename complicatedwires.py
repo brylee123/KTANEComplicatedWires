@@ -10,24 +10,15 @@ def complicatedwires():
 
 	while not serial_input.isnumeric() or int(serial_input) > 2 or int(serial_input) < 1:
 		serial_input = input("Is last digit of serial number even?\n\t1. Yes   2. No\n")
-	if serial_input == "1":
-		serial = True
-	else:
-		serial = False
+	serial = serial_input == "1"
 
 	while not parallel_input.isnumeric() or int(parallel_input) > 2 or int(parallel_input) < 1:
 		parallel_input = input("Is there a parallel port?\n\t1. Yes   2. No\n")
-	if parallel_input == "1":
-		parallel = True
-	else:
-		parallel = False
+	parallel = parallel_input == "1"
 
 	while not batteries_input.isnumeric() or int(batteries_input) > 2 or int(batteries_input) < 1:
 		batteries_input = input("Are there 2+ batteries?\n\t1. Yes   2. No\n")
-	if batteries_input == "1":
-		batteries = True
-	else:
-		batteries = False
+	batteries = batteries_input == "1"
 
 	wire_number = 1
 	while wire_number <= 6:
@@ -42,10 +33,7 @@ def complicatedwires():
 		print("Working on wire #"+str(wire_number))
 		while not led_input.isnumeric() or int(led_input) > 2 or int(led_input) < 1:
 			led_input = input("Is there an LED?\n\t1. Yes   2. No\n")
-		if led_input == "1":
-			led = True
-		else:
-			led = False
+		led = led_input == "1"
 
 		while not color_input.isnumeric() or int(color_input) > 4 or int(color_input) < 1:
 			color_input = input("Which of the following colors does the wire contain?\n\t1. red   2. blue   3. both   4. neither\n")
@@ -53,10 +41,7 @@ def complicatedwires():
 
 		while not star_input.isnumeric() or int(star_input) > 2 or int(star_input) < 1:
 			star_input = input("Is there a star?\n\t1. Yes   2. No\n")
-		if star_input == "1":
-			star = True
-		else:
-			star = False
+		star = star_input == "1"
 
 		# Logical comparison
 
